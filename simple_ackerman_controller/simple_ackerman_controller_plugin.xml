@@ -1,0 +1,11 @@
+<library path="simple_ackerman_controller">
+
+
+    <class name="simple_ackerman_controller/SimpleAckermanController"
+        type="simple_ackerman_controller::SimpleAckermanController"
+        base_class_type="controller_interface::ControllerInterface">
+        <description>
+            Back wheels drive and front wheels steering
+        </description>
+    </class>
+</library>

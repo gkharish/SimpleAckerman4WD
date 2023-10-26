@@ -1,0 +1,47 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 20
+    use_sim_time: True
+
+    simple_ackerman_controller:
+      type: simple_ackerman_controller/SimpleAckermanController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+joint_state_broadcaster:
+  ros__parameters:
+    use_sim_time: True
+
+simple_ackerman_controller:
+  ros__parameters:
+    use_sim_time: True
+
+    # Topics
+    cmd_topic: "/cmd_vel"
+    odom_topic: "/odom/wheel"
+    tf_topic: "/tf"
+     
+    # Names
+    wheel_names:
+      - front_left_wheel_hinge
+      - front_right_wheel_hinge
+      - left_wheel_hinge
+      - right_wheel_hinge
+    steering_names:
+      - front_left_steer_hinge
+      - front_right_steer_hinge
+
+    # Geometry
+    wheel_track: 2.45  # left to right
+    wheel_base: 1.6   # front to back
+    wheel_radius: 0.433
+
+    # Odometry
+    odom_frame_id: odom
+    base_frame_id: base_link
+    pose_covariance_diagonal : [0.001, 0.001, 0.001, 0.001, 0.001, 0.01]
+    twist_covariance_diagonal: [0.001, 0.001, 0.001, 0.001, 0.001, 0.01]
+    
+    # Failsafe
+    cmd_vel_timeout: 0.5
