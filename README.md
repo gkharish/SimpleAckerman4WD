@@ -6,4 +6,4 @@ Prerequisite:
  - Ignition
  - ign-ros2-control
 
-
+![alt A sample result](osiris_bot.png)
