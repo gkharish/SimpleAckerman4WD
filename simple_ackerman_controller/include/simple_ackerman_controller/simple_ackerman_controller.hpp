@@ -105,6 +105,10 @@ protected:
     geometry_msgs::msg::Twist _cmd_received;
     bool _use_stamped_vel = true;
 
+    // vehicle params
+    double _wheel_base;
+    double _wheel_track;
+
     // Protected methods
     bool reset();
     void on_cmd_stamped(const std::shared_ptr<Twist> msg);

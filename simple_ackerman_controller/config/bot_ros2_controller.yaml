@@ -18,7 +18,7 @@ simple_ackerman_controller:
     use_sim_time: True
 
     # Topics
-    cmd_topic: "/cmd_vel"
+    cmd_topic: "/bot/cmd_vel"
     odom_topic: "/odom/wheel"
     tf_topic: "/tf"
      

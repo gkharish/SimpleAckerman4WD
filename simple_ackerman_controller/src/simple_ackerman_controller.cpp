@@ -31,7 +31,8 @@ CallbackReturn SimpleAckermanController::on_init()
     try {
         auto_declare<std::string>("cmd_topic", _cmd_topic_name);
         auto_declare<std::string>("tf_topic", _tf_topic_name);
-
+        auto_declare<double>("wheel_base", _wheel_base);
+        auto_declare<double>("wheel_track", _wheel_track);
         auto_declare<std::vector<std::string>>("wheel_names", std::vector<std::string>());
         auto_declare<std::vector<std::string>>("steering_names", std::vector<std::string>());
     } catch (const std::exception &e) {
@@ -151,7 +152,6 @@ controller_interface::return_type SimpleAckermanController::update(
 // Configuration callback
 CallbackReturn SimpleAckermanController::on_configure(const rclcpp_lifecycle::State &)
 {
-    std::cout << "DEBUG in on_configure: " << std::endl;
     _cmd_topic_name = get_node()->get_parameter("cmd_topic").as_string();
     _tf_topic_name  = get_node()->get_parameter("tf_topic").as_string();
 
@@ -181,7 +181,6 @@ CallbackReturn SimpleAckermanController::on_configure(const rclcpp_lifecycle::St
 
 CallbackReturn SimpleAckermanController::on_activate(const rclcpp_lifecycle::State &previous_state)
 {
-    std::cout << "DEBUG in on_activate: " << std::endl;
     // Configure the wheel motor handles
     const auto wheel_result =
             configure_wheels(_registered_wheel_handles, _registered_steering_handles);
@@ -211,7 +210,6 @@ CallbackReturn SimpleAckermanController::on_deactivate(
 
 CallbackReturn SimpleAckermanController::on_cleanup(const rclcpp_lifecycle::State &previous_state)
 {
-    std::cout << "DEBUG in on_cleanup: " << std::endl;
     // Reset class attributes
     if (!reset()) {
         return CallbackReturn::ERROR;
@@ -224,7 +222,6 @@ CallbackReturn SimpleAckermanController::on_cleanup(const rclcpp_lifecycle::Stat
 
 CallbackReturn SimpleAckermanController::on_error(const rclcpp_lifecycle::State &previous_state)
 {
-    std::cout << "DEBUG in on_error: " << std::endl;
     // Reset class attributes
     if (!reset()) {
         return CallbackReturn::ERROR;
