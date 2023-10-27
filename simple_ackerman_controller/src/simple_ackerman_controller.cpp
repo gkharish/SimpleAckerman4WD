@@ -33,6 +33,8 @@ CallbackReturn SimpleAckermanController::on_init()
         auto_declare<std::string>("tf_topic", _tf_topic_name);
         auto_declare<double>("wheel_base", _wheel_base);
         auto_declare<double>("wheel_track", _wheel_track);
+        auto_declare<double>("radius", _wheel_radius);
+
         auto_declare<std::vector<std::string>>("wheel_names", std::vector<std::string>());
         auto_declare<std::vector<std::string>>("steering_names", std::vector<std::string>());
     } catch (const std::exception &e) {
@@ -77,20 +79,19 @@ double convert_trans_rot_vel_to_steering_angle(double Vx, double theta_dot, doub
     return std::atan(theta_dot * wheelbase / Vx);
 }
 
-std::tuple<double, double> twist_to_ackermann(double Vx, double theta_dot)
+std::tuple<double, double> SimpleAckermanController::twist_to_ackermann(double Vx, double theta_dot)
 {
     // using naming convention in http://users.isr.ist.utl.pt/~mir/cadeiras/robmovel/Kinematics.pdf
     double alpha, Ws;
-    double wheelbase = 0.4;   // TODO: Get the data from urdf or vehicle params
-    double radius    = 0.1;
+
     if (Vx == 0 && theta_dot != 0) {   // is spin action
         alpha = theta_dot > 0 ? M_PI_2 : -M_PI_2;
-        Ws    = abs(theta_dot) * wheelbase / radius;
+        Ws    = abs(theta_dot) * _wheel_base / _wheel_radius;
         return std::make_tuple(alpha, Ws);
     }
 
-    alpha = convert_trans_rot_vel_to_steering_angle(Vx, theta_dot, wheelbase);
-    Ws    = Vx / (radius * std::cos(alpha));
+    alpha = convert_trans_rot_vel_to_steering_angle(Vx, theta_dot, _wheel_base);
+    Ws    = Vx / (_wheel_radius * std::cos(alpha));
     return std::make_tuple(alpha, Ws);
 }
 

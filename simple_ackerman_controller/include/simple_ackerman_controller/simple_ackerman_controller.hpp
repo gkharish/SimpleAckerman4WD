@@ -81,6 +81,8 @@ public:
                          std::vector<WheelHandle> &registered_wheel_handles,
                          std::vector<SteeringHandle> &registered_steering_handles);
 
+    std::tuple<double, double> twist_to_ackermann(double Vx, double theta_dot);
+
 protected:
     // Handle for each wheel
     std::vector<WheelHandle> _registered_wheel_handles;
@@ -108,6 +110,7 @@ protected:
     // vehicle params
     double _wheel_base;
     double _wheel_track;
+    double _wheel_radius;
 
     // Protected methods
     bool reset();

@@ -33,9 +33,9 @@ simple_ackerman_controller:
       - front_right_steer_hinge
 
     # Geometry
-    wheel_track: 2.45  # left to right
-    wheel_base: 1.6   # front to back
-    wheel_radius: 0.433
+    wheel_track: 0.2 # left to right
+    wheel_base: 0.4   # front to back
+    wheel_radius: 0.1
 
     # Odometry
     odom_frame_id: odom
