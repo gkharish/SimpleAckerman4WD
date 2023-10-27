@@ -10,6 +10,7 @@ class BotCommander(Node):
     obstacle_warn_topic_name = "/obstacle_ahead"
     user_cmd_topic_name = "/cmd_vel"
     bot_cmd_topic_name = "bot/cmd_vel"
+    self.distance_threshold_ = 2.0
 
     self.bot_twist_ = Twist()
     self.user_twist_ = Twist()
@@ -31,8 +32,11 @@ class BotCommander(Node):
       
   def timerCallBack(self):
       if self.is_obstacle_present_:
+        # If Obstacle present, set the command such that the rover makes a safe circular turn in front
+        # of the wall. The turning radius should be less than the threshold distance to avoid touching
+        # touching the wall.
         self.bot_twist_.linear.x = 0.05
-        self.bot_twist_.angular.z = 0.08 # Call the geometrical func to calculate .x and .z
+        self.bot_twist_.angular.z = self.bot_twist_.linear.x /(0.5*self.distance_threshold_)
         self.bot_cmd_pub_.publish(self.bot_twist_)
       else:
         self.bot_cmd_pub_.publish(self.user_twist_)
