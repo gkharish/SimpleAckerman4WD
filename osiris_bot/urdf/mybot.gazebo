@@ -9,7 +9,7 @@
 
 
     <gazebo reference="chassis">
-        <material>blue</material>
+        <material>Gazebo/Orange</material>
     </gazebo>
 
     <gazebo reference="left_wheel">

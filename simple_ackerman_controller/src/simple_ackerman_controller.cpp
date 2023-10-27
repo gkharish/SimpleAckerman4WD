@@ -33,7 +33,7 @@ CallbackReturn SimpleAckermanController::on_init()
         auto_declare<std::string>("tf_topic", _tf_topic_name);
         auto_declare<double>("wheel_base", _wheel_base);
         auto_declare<double>("wheel_track", _wheel_track);
-        auto_declare<double>("radius", _wheel_radius);
+        auto_declare<double>("wheel_radius", _wheel_radius);
 
         auto_declare<std::vector<std::string>>("wheel_names", std::vector<std::string>());
         auto_declare<std::vector<std::string>>("steering_names", std::vector<std::string>());
@@ -92,6 +92,7 @@ std::tuple<double, double> SimpleAckermanController::twist_to_ackermann(double V
 
     alpha = convert_trans_rot_vel_to_steering_angle(Vx, theta_dot, _wheel_base);
     Ws    = Vx / (_wheel_radius * std::cos(alpha));
+
     return std::make_tuple(alpha, Ws);
 }
 
@@ -155,6 +156,10 @@ CallbackReturn SimpleAckermanController::on_configure(const rclcpp_lifecycle::St
 {
     _cmd_topic_name = get_node()->get_parameter("cmd_topic").as_string();
     _tf_topic_name  = get_node()->get_parameter("tf_topic").as_string();
+
+    _wheel_base   = get_node()->get_parameter("wheel_base").as_double();
+    _wheel_track  = get_node()->get_parameter("wheel_track").as_double();
+    _wheel_radius = get_node()->get_parameter("wheel_radius").as_double();
 
     // Wheel and steering names. Should be given in the order FL, FR, BL, BR to work properly
     _wheel_names    = get_node()->get_parameter("wheel_names").as_string_array();
