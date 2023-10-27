@@ -29,6 +29,7 @@
             <geometry>
                 <box size=".4 .2 .1" />
             </geometry>
+            <material name="orange" />
         </visual>
 
 
@@ -50,6 +51,7 @@
             <geometry>
                 <cylinder radius="0.1" length="0.05" />
             </geometry>
+            <material name="blue" />
         </visual>
         <inertial>
             <origin xyz="0 0 0" rpy="0 1.5707 1.5707" />
@@ -75,6 +77,7 @@
             <geometry>
                 <cylinder radius="0.1" length="0.05" />
             </geometry>
+            <material name="blue" />
         </visual>
         <inertial>
             <origin xyz="0 0 0" rpy="0 1.5707 1.5707" />
@@ -124,6 +127,7 @@
             <geometry>
                 <cylinder radius="0.1" length="0.05" />
             </geometry>
+            <material name="blue" />
         </visual>
         <inertial>
             <origin xyz="0 0 0" rpy="0 1.5707 1.5707" />
@@ -149,6 +153,7 @@
             <geometry>
                 <cylinder radius="0.1" length="0.05" />
             </geometry>
+            <material name="blue" />
         </visual>
         <inertial>
             <origin xyz="0 0 0" rpy="0 1.5707 1.5707" />
@@ -257,6 +262,7 @@
             <geometry>
                 <cylinder length="0.015" radius="0.01" />
             </geometry>
+            <material name="red" />
         </visual>
 
         <collision>
